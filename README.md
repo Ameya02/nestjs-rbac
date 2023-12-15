@@ -20,6 +20,12 @@ Secure Password Hashing: Employ argon2 for robust password hashing to enhance se
 
 **Server:** Node, Nest, JWT, Typescript, Prism, Passport JS
 
+## Main Function
+![JWT Strategy](https://github.com/Ameya02/nestjs-rbac/assets/65841021/4134737d-15c9-4b46-b56e-fc5b73dc4514)
+This code is for the validatity the access(access token) of the logged in user
+
+![Roles Guard](https://github.com/Ameya02/nestjs-rbac/assets/65841021/58dc8a95-92e3-4563-b7d3-e3292364639f)
+This code is for checking if the user has permission to access the routes or not
 
 ## Installation
 
