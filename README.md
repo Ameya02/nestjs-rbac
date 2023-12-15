@@ -1,73 +1,145 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# NestJS-RBAC
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Overview:
 
-## Description
+NestJS-RBAC is a role-based access control (RBAC) implementation for NestJS, providing a powerful mechanism for managing and enforcing access permissions based on user roles within your NestJS application. This implementation utilizes JSON Web Tokens (JWT), integrates seamlessly with passport-jwt for authentication, and employs argon2 for secure password hashing.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features:
+RBAC: Define and manage roles and permissions for users.
+
+JWT Authentication: Utilize JSON Web Tokens for secure and stateless authentication.
+
+Passport-jwt Integration: Seamless integration with passport-jwt for easy authentication setup.
+
+Secure Password Hashing: Employ argon2 for robust password hashing to enhance security.
+
+
+## Tech Stack
+
+
+**Server:** Node, Nest, JWT, Typescript, Prism, Passport JS
+
 
 ## Installation
 
+Here are the steps to install the project 
+
+Step 1: Clone the github link
+```bash 
+https://github.com/Ameya02/nestjs-rbac
+
+````
+Step 2: Install the dependencied
 ```bash
-$ npm install
+cd nestjs-rbac
+npm install 
+
+```
+Step 3: Install Postgres using Docker Compose file
+```bash
+docker compose up -d
+```
+Step 4: run the project using the following commands
+```bash
+npm run start:dev
+```
+Project will run at port 3001
+
+
+
+    
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`DATABASE_URL`: Use postgres url to connect to the database
+ use this for reference
+ postgresql://username:password@localhost:5432/database_name?schema=public
+
+`JWT_SECRET`: secret key of json web token
+
+
+
+
+## API Reference
+
+#### Signup Route
+
+```http
+  POST /auth/signup
 ```
 
-## Running the app
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `email` | `string` | **Required**. Your Email Address|
+| `password` | `string` | **Required**. Your Password|
+| `role` | `string` | **Required**. Your Access Role|
 
-```bash
-# development
-$ npm run start
+#### Signin Route
 
-# watch mode
-$ npm run start:dev
+```http
+  POST /auth/signin
+```
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `email` | `string` | **Required**. Your Email Address|
+| `password` | `string` | **Required**. Your Password|
 
-# production mode
-$ npm run start:prod
+
+
+#### User Route Only for user role
+
+```http
+  GET /users/user
 ```
 
-## Test
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `token` | `string` | **Required**. Your Access Token|
 
-```bash
-# unit tests
-$ npm run test
+#### User Route Only for manager role
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```http
+  GET /users/manager
 ```
 
-## Support
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `token` | `string` | **Required**. Your Access Token|
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### User Route Only for admin role
 
-## Stay in touch
+```http
+  GET /users/admin
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `token` | `string` | **Required**. Your Access Token|
+
+
+
+
+## Author
+
+- [@AmeyaBavkar](https://www.github.com/Ameya02)
+
+
+## Contributing
+
+Contributions are welcome! If you have any ideas, suggestions, or bug fixes, please open an issue or submit a pull request. We greatly appreciate any work contributed, no matter how big or small it is!. Make sure to follow the project's code of conduct.
+
+Issues & Pull Requests
+When you are ready to start work on an issue:
+
+- Let us know by leaving a comment on the issue (or you can also raise a new issue if you want to work on something completely new in the project)
+- Once you are assigned the issue (or once you have claimed the issue) only then proceed to make the Pull Request. This will help avoid multiple PRs pertaining to the same issue.
+- Go through the CONTRIBUTING.md file, where all the guidelines have been mentioned that will guide you to make your contribution.
+- Do check out the project issue tracker section.
+
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT](https://choosealicense.com/licenses/mit/)
+
