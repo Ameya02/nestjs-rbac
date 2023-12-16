@@ -46,7 +46,11 @@ Step 3: Install Postgres using Docker Compose file
 ```bash
 docker compose up -d
 ```
-Step 4: run the project using the following commands
+Step 4: Run the prisma command to migrate the schema to the database
+```bash
+npx prisma migrate dev
+```
+Step 5: run the project using the following commands
 ```bash
 npm run start:dev
 ```
